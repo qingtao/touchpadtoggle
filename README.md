@@ -9,8 +9,8 @@ go install github.com/qingtao/touchpadtoggle/cmd/touchpad_toggle@latest
 ## 2. 使用方法
 
 ```
-$ go run . -h
-Usage of /tmp/go-build3253032926/b001/exe/touchpad_toggle:
+$ touchpad_toggle -h
+Usage of touchpad_toggle:
   -debug
         启用debug
   -id string
