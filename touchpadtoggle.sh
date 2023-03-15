@@ -16,7 +16,7 @@ getState() {
 # 设置touchpad的状态
 setState() {
     local state=$1
-    echo $state
+    # echo $state
     if [ "$state" = "enabled" -o "$state" = "disabled" ]; then
         gsettings set org.gnome.desktop.peripherals.touchpad send-events $state
     fi
