@@ -5,8 +5,6 @@
 TITLE="触摸板"
 ENABLED="已启用"
 DISABLED="已禁用"
-# 过期时间毫秒
-EXPIRES=20
 
 # 通过 gsettings 读取当前的touchpad状态
 getState() {
@@ -16,9 +14,19 @@ getState() {
 # 设置touchpad的状态
 setState() {
     local state=$1
-    # echo $state
+    #echo $state
     if [ "$state" = "enabled" -o "$state" = "disabled" ]; then
         gsettings set org.gnome.desktop.peripherals.touchpad send-events $state
+    fi
+}
+
+showMessage() {
+    local msg=$1
+    zenity=`which zenity`
+    if [ "a$zenity" = "a" ]; then
+        notify-send -c device -t 20 "$TITLE" "$msg"
+    else
+        zenity --timeout 1 --notification --text ${TITLE}${msg}
     fi
 }
 
@@ -50,7 +58,7 @@ toggle() {
     # 再次获取状态, 如果与预期一致发送桌面通知
     state=`getState`
     if [ "$state" = "$action" ]; then
-        notify-send -c device -t $EXPIRES "$TITLE" "$msg"
+        showMessage $msg
     fi
 }
 
